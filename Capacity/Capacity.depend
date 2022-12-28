@@ -1,4 +1,29 @@
 # depslib dependency file v1.0
-1669467032 source:c:\users\emily hofmann\documents\uni\capycity\capacity\main.cpp
+1672250626 source:c:\users\emily hofmann\documents\uni\capycity\capacity\main.cpp
 	<iostream>
+	"CapycitySim.h"
+
+1672249278 source:c:\users\emily hofmann\documents\uni\capycity\capacity\src\building.cpp
+	"Building.h"
+	<iostream>
+
+1672236368 c:\users\emily hofmann\documents\uni\capycity\capacity\include\building.h
+	<string>
+	<vector>
+	"Material.h"
+
+1672250224 c:\users\emily hofmann\documents\uni\capycity\capacity\include\capycitysim.h
+	"Building.h"
+	<set>
+
+1672250732 source:c:\users\emily hofmann\documents\uni\capycity\capacity\src\capycitysim.cpp
+	"CapycitySim.h"
+	<iostream>
+	<set>
+
+1672234648 c:\users\emily hofmann\documents\uni\capycity\capacity\include\material.h
+	<string>
+
+1672234648 source:c:\users\emily hofmann\documents\uni\capycity\capacity\src\material.cpp
+	"Material.h"
 
