@@ -2,7 +2,11 @@
 #define BUILDING_H
 #include <string>
 #include <vector>
+#include <map>
 #include "Material.h"
+
+
+
 class Building
 {
     public:
@@ -23,7 +27,15 @@ class Building
         int Grundpreis;
         char Label;
         std::string name;
-        std::vector<Material*> Materials;
+        /*
+            Ich habe die Verwaltung der Materialien hier umgesetzt,
+            weil es unwahrscheinlich scheint das die Materialien für
+            andere Dinge mit der gleichen Struktur verwaltet werden
+            könnten, und mir eine zusätzliche Verwaltungsklasse
+            unnötig umständlich erschien.
+        */
+        std::map<Material*,int> materialmap;
+        void initMaterials(int HolzAm, int MetallAm, int KunststoffAm);
     private:
 
 };

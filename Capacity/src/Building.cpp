@@ -1,6 +1,13 @@
 #include "Building.h"
 #include <iostream>
 
+#ifndef StandardMaterials
+#define StandardMaterials
+Material* StandardHolz = (Material*)new Holz();
+Material* StandardMetall = (Material*)new Metall();
+Material* StandardKunststoff = (Material*)new Kunststoff();
+#endif
+
 Building::Building()
 {
     //ctor
@@ -10,18 +17,23 @@ Building::Building()
     name = "Empty";
     spots = 0;
 }
+void Building::initMaterials(int HolzAm, int MetallAm, int KunststoffAm){
+    materialmap[StandardHolz]= HolzAm;
+    materialmap[StandardMetall]= MetallAm;
+    materialmap[StandardKunststoff]=KunststoffAm;
+}
 void Building::print(){
     std::cout<<name<<": Preis: "<<GetPrice()<<std::endl;
-    std::cout<<"Materials: "<<spots<<"x ( ";
-    for(auto k:Materials){
-        std::cout<<k->Getname()<<", ";
+    std::cout<<"Materials: ";
+    for(auto& [key,value] : materialmap){
+        std::cout<< value*spots<<": "<< key->Getname() <<"  ";
     }
-    std::cout<<")"<<std::endl;
+    std::cout<<std::endl;
 }
 int Building::GetPrice(){
     int price = 0;
-    for(auto k:Materials){
-        price+=k->Getprice();
+    for(auto& [key,value] : materialmap){
+        price+=key->Getprice()*value;
     }
     price = price*spots;
     price = price + Grundpreis;
@@ -32,8 +44,7 @@ Wasserkraftwerk::Wasserkraftwerk(int num){
     Label = 'a';
     name = "Wasserkraftwerk "+std::to_string(num);
     spots = 0;
-    Materials.push_back((Material*)new Holz());
-    Materials.push_back((Material*)new Metall());
+    initMaterials(1,1,0);
 
 }
 Windkraftwerk::Windkraftwerk(int num){
@@ -41,19 +52,21 @@ Windkraftwerk::Windkraftwerk(int num){
     Label = 'i';
     name = "Windkraftwerk "+std::to_string(num);
     spots = 0;
-    Materials.push_back((Material*)new Metall());
-    Materials.push_back((Material*)new Metall());
+    initMaterials(0,2,0);
 }
 Solarpanel::Solarpanel(int num){
     Grundpreis = 70;
     Label = 's';
     name = "Solarpanel "+std::to_string(num);
     spots = 0;
-    Materials.push_back((Material*)new Metall());
-    Materials.push_back((Material*)new Kunststoff());
+    initMaterials(0,1,1);
 }
 Building::~Building()
 {
     //dtor
-    for(auto k:Materials){delete k;}
+    for(auto& [key,value]: materialmap){
+        if(key!=StandardHolz&&key!=StandardKunststoff&&key!=StandardMetall){
+            delete key;
+        }
+    }
 }
