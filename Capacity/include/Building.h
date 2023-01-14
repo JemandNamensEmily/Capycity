@@ -10,22 +10,26 @@
 class Building
 {
     public:
-        Building();
+        Building();//makes empty building
+        Building(std::string myName, char myLabel, int myGrundpreis, int myLeistung):name(myName), Label(myLabel),Grundpreis(myGrundpreis),Leistung(myLeistung),spots(0){}
         ~Building();
 
         void print();
-        int GetPrice();
+
+        int GetPrice();//Full price (Grundpreis+Materialpreis)
         int GetGrundpreis() { return Grundpreis; }
         void SetGrundpreis(int val) { Grundpreis = val; }
         char GetLabel() { return Label; }
         void SetLabel(char val) { Label = val; }
+        float GetLeistung(){return Leistung;}
         std::string GetName() { return name;}
         void SetName(std::string nam) { name = nam; }
 
-        int spots;
+        int spots;//How many squares does the building occupy
     protected:
         int Grundpreis;
-        char Label;
+        float Leistung;
+        char Label; //to print in map
         std::string name;
         /*
             Ich habe die Verwaltung der Materialien hier umgesetzt,
@@ -43,19 +47,19 @@ class Building
 class Wasserkraftwerk : public Building
 {
     public:
-        Wasserkraftwerk(int num);
+        Wasserkraftwerk(int num);//num added to label to differentiate buildings of same type
 
 };
 class Windkraftwerk : public Building
 {
     public:
-        Windkraftwerk(int num);
+        Windkraftwerk(int num);//num added to label to differentiate buildings of same type
 
 };
 class Solarpanel: public Building
 {
     public:
-        Solarpanel(int num);
+        Solarpanel(int num);//num added to label to differentiate buildings of same type
 };
 
 #endif // BUILDING_H

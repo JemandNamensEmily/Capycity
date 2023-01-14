@@ -2,35 +2,30 @@
 #include "CapycitySim.h"
 
 using namespace std;
-//building types
+
 int main()
 {
     cout << "Capacity Builder" << endl;
-    //get area size
-    cout<<"How wide is your area? ";
-    int width;
-    do{
-        cin>>width;
-    }while(width<=0);
 
-    cout<<"How long is it? ";
-    int len;
-    do{
-        cin>>len;
-    }while(len<=0);
 
-    CapycitySim myCity = CapycitySim(len,width);
+    CapycitySim myCity = CapycitySim();
     char todo;
     do{
-        cout<<"What would you like to do? P-Print, Q-Quit, N-New Building, C-Clear Area: ";
+        cout<<"What would you like to do? P-Print, A-Print All, Q-Quit, N-New Building, C-Clear Area, M-Go to Plan Menue: ";
         cin >>todo;
         todo = toupper(todo);
         switch(todo){
+        case 'A':
+            myCity.printall();
+            break;
         case 'P':
             myCity.print();
             break;
         case 'N': case 'C':
             myCity.newBuilding(todo);
+            break;
+        case 'M':
+            myCity.planMenue();
         }
 
     }while(todo!='Q');

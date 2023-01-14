@@ -3,6 +3,7 @@
 
 #ifndef StandardMaterials
 #define StandardMaterials
+//Standard Materials, so all Buildings can have the same ones(no copies)
 Material* StandardHolz = (Material*)new Holz();
 Material* StandardMetall = (Material*)new Metall();
 Material* StandardKunststoff = (Material*)new Kunststoff();
@@ -16,12 +17,15 @@ Building::Building()
     Grundpreis = 0;
     name = "Empty";
     spots = 0;
+    Leistung = 0;
 }
-void Building::initMaterials(int HolzAm, int MetallAm, int KunststoffAm){
+
+void Building::initMaterials(int HolzAm, int MetallAm, int KunststoffAm){//Builds the materialmap of the building
     materialmap[StandardHolz]= HolzAm;
     materialmap[StandardMetall]= MetallAm;
     materialmap[StandardKunststoff]=KunststoffAm;
 }
+
 void Building::print(){
     std::cout<<name<<": Preis: "<<GetPrice()<<std::endl;
     std::cout<<"Materials: ";
@@ -39,31 +43,22 @@ int Building::GetPrice(){
     price = price + Grundpreis;
     return price;
 }
-Wasserkraftwerk::Wasserkraftwerk(int num){
-    Grundpreis = 50;
-    Label = 'a';
-    name = "Wasserkraftwerk "+std::to_string(num);
-    spots = 0;
+//Inits of different Buildingtypes with static values and Materials to shorten adding buildings
+Wasserkraftwerk::Wasserkraftwerk(int num): Building("Wasserkraftwerk "+std::to_string(num),'a',50,100){
     initMaterials(1,1,0);
 
 }
-Windkraftwerk::Windkraftwerk(int num){
-    Grundpreis = 60;
-    Label = 'i';
-    name = "Windkraftwerk "+std::to_string(num);
-    spots = 0;
+Windkraftwerk::Windkraftwerk(int num): Building("Windkraftwerk "+std::to_string(num),'i',60,200){
     initMaterials(0,2,0);
 }
-Solarpanel::Solarpanel(int num){
-    Grundpreis = 70;
-    Label = 's';
-    name = "Solarpanel "+std::to_string(num);
-    spots = 0;
+Solarpanel::Solarpanel(int num):Building("Solarpanel "+std::to_string(num),'s',70,170){
     initMaterials(0,1,1);
 }
 Building::~Building()
 {
     //dtor
+    //std::cout<<"Deleting building "<<name<<std::endl;
+    //delete non Standard Materials used for individual buildings
     for(auto& [key,value]: materialmap){
         if(key!=StandardHolz&&key!=StandardKunststoff&&key!=StandardMetall){
             delete key;

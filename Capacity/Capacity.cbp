@@ -34,10 +34,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Blueprint.h" />
 		<Unit filename="include/Building.h" />
 		<Unit filename="include/CapycitySim.h" />
 		<Unit filename="include/Material.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Blueprint.cpp" />
 		<Unit filename="src/Building.cpp" />
 		<Unit filename="src/CapycitySim.cpp" />
 		<Unit filename="src/Material.cpp" />
